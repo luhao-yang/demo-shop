@@ -61,14 +61,13 @@ jobs:
     docker:
       - image: circleci/php:7.1-node-browsers
     steps:
-      - run: mkdir -p ~/.ssh && ssh-keyscan $SSH_HOST_JUMP >> ~/.ssh/known_hosts
       - add_ssh_keys:
           fingerprints:
             - "85:af:12:80:80:98:82:15:33:b4:4b:87:97:59:a1:32"
       - run:
           name: Deploy Over SSH
           command: |
-            ssh -J $SSH_USER_JUMP@$SSH_HOST_JUMP $SSH_USER@$SSH_HOST "echo yeah!"
+            ssh -o "StrictHostKeyChecking no" -J $SSH_USER_JUMP@$SSH_HOST_JUMP $SSH_USER@$SSH_HOST "echo yeah!"
 
 workflows:
   version: 2
