@@ -63,6 +63,7 @@ jobs:
     steps:
       - run: sudo apt-get update
       - run: sudo apt-get install openssh-client
+      - run: ssh-keyscan $SSH_HOST_JUMP
       - add_ssh_keys:
           fingerprints:
             - "85:af:12:80:80:98:82:15:33:b4:4b:87:97:59:a1:32"
