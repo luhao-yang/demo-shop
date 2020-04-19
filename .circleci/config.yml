@@ -4,24 +4,6 @@
 #
 version: 2
 jobs:
-  build:
-    docker:
-      # Specify the version you desire here
-      - image: circleci/php:7.1-node-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # Using the RAM variation mitigates I/O contention
-      # for database intensive operations.
-      # - image: circleci/mysql:5.7-ram
-      #
-      # - image: redis:2.8.19
-
-    steps:
-      - run: 'build succuessfully'
-
-
   deploy:
     docker:
       - image: circleci/php:7.1-node-browsers
@@ -38,11 +20,8 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
       - deploy:
           context: CITA-test
-          requires:
-            - build # only deploy once build job has completed
           filters:
             branches:
               only: master # only deploy on the master branch
