@@ -58,10 +58,11 @@ jobs:
       #- run: ./vendor/bin/codecept run
 
   deploy:
-    machine:
-      image: ubuntu-1604:201903-01
+    docker:
+      - image: circleci/php:7.1-node-browsers
     steps:
-      - run: sudo apt-get update && sudo apt-get install openssh-client
+      - run: sudo apt-get update
+      - run: sudo apt-get install openssh-client
       - add_ssh_keys:
           fingerprints:
             - "85:af:12:80:80:98:82:15:33:b4:4b:87:97:59:a1:32"
@@ -76,6 +77,7 @@ workflows:
     jobs:
       - build
       - deploy:
+          context: CITA-test
           requires:
             - build # only deploy once build job has completed
           filters:
